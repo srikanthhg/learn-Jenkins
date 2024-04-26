@@ -1,0 +1,16 @@
+#!groovy
+@Library('jenkins-shared-library') _ // underscore means everything we are importing, present in the library
+
+// responsibility to pass what type of application and component is this to pipeline decision
+
+def configMap = [ // variable creation
+    application: "nodejsVM", // jenkins-shared-library nodejsVm name
+    component: "catalogue"
+]
+
+if( ! env.Branch_name.equalsIgnoreCase('main')){
+    pipelineDecision.decidePipeline(configMap)
+}
+else {
+    echo "This is PRODUCTION, deal with CR process"
+}
